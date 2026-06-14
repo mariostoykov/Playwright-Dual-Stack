@@ -1,0 +1,28 @@
+# Local Virtual Environment
+venv/
+ENV/
+env/
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Pytest Cache & Reports
+.pytest_cache/
+.htmlreport/
+reports/
+htmlcov/
+.coverage
+
+# Authentication State Caching
+playwright/auth.json
+
+# IDE Settings
+.vscode/
+.idea/
+
+node_modules/
+playwright-js/node_modules/
+playwright-js/.package-lock.json

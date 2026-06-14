@@ -1,0 +1,82 @@
+name: Dual-Language Regression Test Suite
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  # JOB 1: Run the Playwright-Python Regression Suite
+  python-tests:
+    name: Playwright-Python Execution (Ubuntu)
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./playwright-python 
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Python 3.11
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+        cache: 'pip'
+
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install pytest pytest-playwright pytest-html pytest-xdist
+
+    - name: Install Playwright Browsers
+      run: python -m playwright install --with-deps chromium firefox
+
+    - name: Run Tests
+      run: python -m pytest --browser chromium --browser firefox --env prod
+
+    - name: Upload Python Test Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-python-report
+        path: playwright-python/reports/
+        retention-days: 7
+
+  # JOB 2: Run the Playwright-TypeScript Regression Suite
+  typescript-tests:
+    name: Playwright-TypeScript Execution (Ubuntu)
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Install Dependencies
+      run: |
+        cd playwright-js
+        npm install
+
+    - name: Install Playwright Browsers
+      run: |
+        cd playwright-js
+        npx playwright install --with-deps
+
+    - name: Run Tests
+      run: |
+        cd playwright-js
+        npx playwright test
+
+    - name: Upload TypeScript Test Report
+      if: always()
+      uses: actions/upload-artifact@v4
+      with:
+        name: playwright-typescript-report
+        path: playwright-js/playwright-report/
+        retention-days: 7
