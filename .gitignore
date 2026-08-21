@@ -25,4 +25,12 @@ playwright/auth.json
 
 node_modules/
 playwright-js/node_modules/
-playwright-js/.package-lock.json
+playwright-js/.package-lock.
+
+# Ignore local Playwright & Pytest test report outputs
+node_modules/
+playwright-report/
+playwright/.cache/
+test-results/
+htmlcov/
+.coverage
