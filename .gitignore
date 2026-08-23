@@ -1,36 +1,65 @@
-# Local Virtual Environment
-venv/
-ENV/
-env/
-
-# Python Cache
+# Python
 __pycache__/
-*.pyc
-*.pyo
-*.pyd
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
 
-# Pytest Cache & Reports
-.pytest_cache/
-.htmlreport/
-reports/
-htmlcov/
-.coverage
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
 
-# Authentication State Caching
-playwright/auth.json
+# Node.js / TypeScript
+node_modules/
+package-lock.json
+yarn.lock
+dist/
+*.js.map
 
-# IDE Settings
+# IDE
 .vscode/
 .idea/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+*.user
 
-node_modules/
-playwright-js/node_modules/
-playwright-js/.package-lock.
+# Environment
+.env
+.env.local
+.env.*.local
 
-# Ignore local Playwright & Pytest test report outputs
-node_modules/
-playwright-report/
-playwright/.cache/
-test-results/
-htmlcov/
+# Test & Coverage
+coverage/
+.nyc_output/
+.pytest_cache/
 .coverage
+htmlcov/
+test-results/
+*.trx
+
+# Playwright
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Auth cache
+auth.json
+
+# IDE specific
+.pylintrc
+.mypy_cache/
