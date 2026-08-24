@@ -30,14 +30,18 @@ def global_auth_setup(base_url, request):
         browser = browser_type.launch(headless=True)
         context = browser.new_context()
         page = context.new_page()
-        
-        page.goto(base_url)
-        page.locator('[data-test="username"]').fill(SAUCE_USERNAME)
-        page.locator('[data-test="password"]').fill(SAUCE_PASSWORD)
-        page.locator('[data-test="login-button"]').click()
-        
-        context.storage_state(path=AUTH_FILE)
-        browser.close()
+
+        try:
+            page.goto(base_url)
+            page.locator('[data-test="username"]').fill(SAUCE_USERNAME)
+            page.locator('[data-test="password"]').fill(SAUCE_PASSWORD)
+            page.locator('[data-test="login-button"]').click()
+            page.wait_for_url("**/inventory.html")
+
+            context.storage_state(path=AUTH_FILE)
+        finally:
+            context.close()
+            browser.close()
 
 @pytest.fixture(scope="function")
 def authenticated_page(browser):
