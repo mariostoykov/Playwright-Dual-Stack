@@ -1,6 +1,7 @@
 import { defineConfig, devices } from '@playwright/test';
 
 export const STORAGE_STATE = 'playwright/.auth/user.json';
+const BASE_URL = process.env.BASE_URL ?? 'https://www.saucedemo.com';
 
 export default defineConfig({
   testDir: './tests',
@@ -11,7 +12,7 @@ export default defineConfig({
   reporter: [['html', { outputFolder: 'playwright-report' }]],
   
   use: {
-    baseURL: 'https://www.saucedemo.com',
+    baseURL: BASE_URL,
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
   },

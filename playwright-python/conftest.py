@@ -3,10 +3,13 @@ import pytest
 from playwright.sync_api import sync_playwright
 
 AUTH_FILE = "playwright/auth.json"
+SAUCE_USERNAME = os.getenv("SAUCE_USERNAME", "standard_user")
+SAUCE_PASSWORD = os.getenv("SAUCE_PASSWORD", "secret_sauce")
+DEFAULT_BASE_URL = os.getenv("BASE_URL", "https://www.saucedemo.com")
 ENV_URLS = {
-    "dev": "https://dev.saucedemo.com",
-    "staging": "https://staging.saucedemo.com",
-    "prod": "https://www.saucedemo.com"
+    "dev": os.getenv("DEV_BASE_URL", DEFAULT_BASE_URL),
+    "staging": os.getenv("STAGING_BASE_URL", DEFAULT_BASE_URL),
+    "prod": DEFAULT_BASE_URL,
 }
 
 def pytest_addoption(parser):
@@ -29,8 +32,8 @@ def global_auth_setup(base_url, request):
         page = context.new_page()
         
         page.goto(base_url)
-        page.locator('[data-test="username"]').fill("standard_user")
-        page.locator('[data-test="password"]').fill("secret_sauce")
+        page.locator('[data-test="username"]').fill(SAUCE_USERNAME)
+        page.locator('[data-test="password"]').fill(SAUCE_PASSWORD)
         page.locator('[data-test="login-button"]').click()
         
         context.storage_state(path=AUTH_FILE)

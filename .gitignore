@@ -20,6 +20,7 @@ package-lock.json
 yarn.lock
 dist/
 *.js.map
+!playwright-js/package-lock.json
 
 # IDE
 .vscode/
@@ -59,6 +60,7 @@ Thumbs.db
 
 # Auth cache
 auth.json
+playwright-js/playwright/.auth/
 
 # IDE specific
 .pylintrc

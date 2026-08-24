@@ -2,9 +2,10 @@ name: Dual-Language Regression Test Suite
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
   pull_request:
-    branches: [ main, master ]
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   # JOB 1: Run the Playwright-Python Regression Suite
@@ -28,7 +29,7 @@ jobs:
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
-        python -m pip install pytest pytest-playwright pytest-html pytest-xdist
+        python -m pip install -r requirements.txt
 
     - name: Install Playwright Browsers
       run: python -m playwright install --with-deps chromium firefox
@@ -61,7 +62,7 @@ jobs:
     - name: Install Dependencies
       run: |
         cd playwright-js
-        npm install
+        npm ci
 
     - name: Install Playwright Browsers
       run: |
