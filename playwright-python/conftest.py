@@ -44,8 +44,8 @@ def global_auth_setup(base_url, request):
             browser.close()
 
 @pytest.fixture(scope="function")
-def authenticated_page(browser):
-    context = browser.new_context(storage_state=AUTH_FILE)
+def authenticated_page(browser, base_url):
+    context = browser.new_context(storage_state=AUTH_FILE, base_url=base_url)
     page = context.new_page()
     yield page
     context.close()
